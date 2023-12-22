@@ -1,4 +1,4 @@
-import { Bell, People, PersonCircle, Search } from "react-bootstrap-icons";
+import { Bell, PersonCircle, Search } from "react-bootstrap-icons";
 import Nav from "react-bootstrap/Nav";
 // import Form from "react-bootstrap/Form";
 // import Button from "react-bootstrap/Button";

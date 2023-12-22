@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Dropdown, DropdownButton } from "react-bootstrap";
 import { Grid, List } from "react-bootstrap-icons";
+import NetflixRows from "./NetflixRows";
 
 const NetflixMain = () => {
   return (
@@ -31,7 +32,7 @@ const NetflixMain = () => {
           <List size="1rem" />
         </Col>
       </Row>
-      {/* NetflixRows */}
+      <NetflixRows />
     </Container>
   );
 };
