@@ -5,14 +5,14 @@ import { Facebook, Instagram, Twitter, Youtube } from "react-bootstrap-icons";
 const NetflixFooter = () => {
   return (
     <Container fluid>
-      <Row className="justify-content-center mt-5">
+      <Row className="justify-content-center mt-5 text-secondary">
         {/* Icone Social */}
         <Row className="mb-2">
           <Col md={3}>
-            <Facebook color="white" size="1rem" style={{ marginRight: "2vmin" }} />
-            <Instagram color="white" size="1rem" style={{ marginRight: "2vmin" }} />
-            <Twitter color="white" size="1rem" style={{ marginRight: "2vmin" }} />
-            <Youtube color="white" size="1rem" />
+            <Facebook size="0.8rem" style={{ marginRight: "2vmin" }} />
+            <Instagram size="0.8rem" style={{ marginRight: "2vmin" }} />
+            <Twitter size="0.8rem" style={{ marginRight: "2vmin" }} />
+            <Youtube size="0.8rem" />
           </Col>
         </Row>
 
@@ -35,7 +35,7 @@ const NetflixFooter = () => {
                 Privacy
               </a>
             </p>
-            <p>
+            <p className="mb-2">
               <a href="#" alt="footer link" className="text-secondary">
                 Contact us
               </a>

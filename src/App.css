@@ -3,6 +3,16 @@ body {
   background-color: #221f1f;
   color: white;
 }
+
+a {
+  color: gray;
+  text-decoration: none;
+  font-size: 0.7rem;
+}
+
+p {
+  margin: 0;
+}
 /*FINE CSS DELL'APP CUSTOM MIO*/
 
 .App {
