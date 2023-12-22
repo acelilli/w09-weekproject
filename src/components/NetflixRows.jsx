@@ -1,32 +1,84 @@
-import React from "react";
+import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-// Struttura delle tre rows generiche che conterranno H4 e le row contenenti SingleMovie(che saranno col)
+import SingleMovie from "./SingleMovie";
 
-const NetflixRows = () => {
-  return (
-    <Container fluid>
-      {/* Sezione Fantasy */}
-      <Row>{/* HP, LOTR */}</Row>
-      <Col md={12}>
-        <h4 className="text-start">Fantasy</h4>
-      </Col>
+class NetflixRows extends Component {
+  state = {
+    movies: [],
+  };
 
-      {/* Sezione Horror */}
-      <Row>{/* Studio Ghibli */}</Row>
-      <Col md={12}>
-        <h4 className="text-start">Anime</h4>
-      </Col>
+  getMovies = async () => {
+    try {
+      let response = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=43b92655`);
+      if (response.ok) {
+        let data = await response.json();
+        this.setState({
+          movies: data.Search,
+          isLoading: false,
+        });
+      } else {
+        console.log("Chiamata errata");
+        this.setState({
+          isLoading: false,
+          isError: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      this.setState({
+        isLoading: false,
+        isError: true,
+      });
+    }
+  };
 
-      {/* Sezione Supereroi TRANNE spiderman */}
-      <Row>
-        <Col md={12}>
-          <h4 className="text-start">Super</h4>
-        </Col>
-        {/* Contenuto della sezione */}
-      </Row>
-    </Container>
-  );
-};
+  componentDidMount() {
+    this.getMovies();
+  }
+
+  render() {
+    const { movies } = this.state;
+    return (
+      <Container fluid>
+        {/* Sezione Fantasy */}
+        <Row>
+          {/* HP, LOTR */}
+          <Col md={12}>
+            <h4 className="text-start">Fantasy</h4>
+          </Col>
+          <Col>
+            {this.state.movies.map((movie) => {
+              return <SingleMovie movie={movie} key={movie.imdbID} />;
+            })}
+          </Col>
+        </Row>
+        {/* Sezione Anime */}
+        <Row>
+          {/* Studio Ghibli e che ne so */}
+          <Col md={12}>
+            <h4 className="text-start">Anime</h4>
+          </Col>
+          <Col>
+            {this.state.movies.map((movie) => {
+              return <SingleMovie movie={movie} key={movie.imdbID} />;
+            })}
+          </Col>
+        </Row>
+        {/* Sezione Supereroi TRANNE spiderman */}
+        <Row>
+          <Col md={12}>
+            <h4 className="text-start">Super</h4>
+          </Col>
+          <Col>
+            {this.state.movies.map((movie) => {
+              return <SingleMovie movie={movie} key={movie.imdbID} />;
+            })}
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
+}
 
 export default NetflixRows;
 

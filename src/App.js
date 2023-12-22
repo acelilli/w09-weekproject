@@ -1,5 +1,6 @@
+// E niente, non funziona
+
 import "bootstrap/dist/css/bootstrap.css";
-import logo from "./logo.svg";
 import "./App.css";
 import NetflixNavbar from "./components/NetflixNavbar";
 import NetflixFooter from "./components/NetflixFooter";

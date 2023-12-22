@@ -32,7 +32,7 @@ const NetflixMain = () => {
           <List size="1rem" />
         </Col>
       </Row>
-      <NetflixRows />
+      <NetflixRows query="harry%20potter" />
     </Container>
   );
 };
