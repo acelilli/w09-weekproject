@@ -103,8 +103,8 @@ const NetflixFooter = () => {
         {/* Pulsante e Copyright */}
         {/* Row del button */}
         <Row className="mb-2">
-          <Col lg={12}>
-            <Button type="button" className="btn-sm footer-button rounded-0 mt-3">
+          <Col md={3}>
+            <Button type="button" variant="outline-secondary">
               Service Code
             </Button>
           </Col>
