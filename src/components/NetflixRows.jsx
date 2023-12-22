@@ -5,74 +5,81 @@ import SingleMovie from "./SingleMovie";
 class NetflixRows extends Component {
   state = {
     movies: [],
+    isLoading: false, // Caricamento
   };
 
-  getMovies = async () => {
+  componentDidMount = async () => {
+    this.setState({
+      isLoading: true,
+    }); // Toggle dello state
     try {
-      let response = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=43b92655`);
+      const response = await fetch(`http://www.omdbapi.com/?apikey=43b92655&movie&s=${this.props.Title}`);
       if (response.ok) {
-        let data = await response.json();
-        this.setState({
-          movies: data.Search,
-          isLoading: false,
-        });
+        const data = await response.json();
+        this.setState({ movies: data });
       } else {
-        console.log("Chiamata errata");
-        this.setState({
-          isLoading: false,
-          isError: true,
-        });
+        console.log("error while fetching");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
       this.setState({
         isLoading: false,
-        isError: true,
       });
     }
   };
 
-  componentDidMount() {
-    this.getMovies();
-  }
-
   render() {
-    const { movies } = this.state;
+    const { movies, isLoaded } = this.state; // Destructuring della state per migliorare la leggibilità
+
+    if (!isLoaded) {
+      return <p>Loading...</p>; // Aggiunto messaggio di caricamento durante il fetch dei dati
+    }
+
     return (
       <Container fluid>
         {/* Sezione Fantasy */}
         <Row>
-          {/* HP, LOTR */}
           <Col md={12}>
             <h4 className="text-start">Fantasy</h4>
           </Col>
           <Col>
-            {this.state.movies.map((movie) => {
-              return <SingleMovie movie={movie} key={movie.imdbID} />;
-            })}
+            {this.state.isLoaded ? (
+              this.state.movies.map((movie, index) => {
+                return index < 6 && <SingleMovie key={movie.imdbID} movie={movie} />;
+              })
+            ) : (
+              <p>Errore</p>
+            )}
           </Col>
         </Row>
         {/* Sezione Anime */}
         <Row>
-          {/* Studio Ghibli e che ne so */}
           <Col md={12}>
-            <h4 className="text-start">Anime</h4>
+            <h4 className="text-start">Horror</h4>
           </Col>
           <Col>
-            {this.state.movies.map((movie) => {
-              return <SingleMovie movie={movie} key={movie.imdbID} />;
-            })}
+            {this.state.isLoaded ? (
+              this.state.movies.map((movie, index) => {
+                return index < 6 && <SingleMovie key={movie.imdbID} movie={movie} />;
+              })
+            ) : (
+              <p>Errore</p>
+            )}
           </Col>
         </Row>
-        {/* Sezione Supereroi TRANNE spiderman */}
+        {/* Sezione Supereroi TRANNE Spiderman */}
         <Row>
           <Col md={12}>
             <h4 className="text-start">Super</h4>
           </Col>
           <Col>
-            {this.state.movies.map((movie) => {
-              return <SingleMovie movie={movie} key={movie.imdbID} />;
-            })}
+            {this.state.isLoaded ? (
+              this.state.movies.map((movie, index) => {
+                return index < 6 && <SingleMovie key={movie.imdbID} movie={movie} />;
+              })
+            ) : (
+              <p>Errore</p>
+            )}
           </Col>
         </Row>
       </Container>
@@ -81,17 +88,3 @@ class NetflixRows extends Component {
 }
 
 export default NetflixRows;
-
-//   {/* Sezione Fantasy */}
-//   <h4>Fantasy</h4>
-//   <Row className="row-cols-1 row-cols-sm-2 row-cols-lg-4 row-cols-xl-6 mb-4">{/* HP, LOTR */}</Row>
-
-//   {/* Sezione Horror */}
-//   <h4>Anime</h4>
-//   <Row className="row-cols-1 row-cols-sm-2 row-cols-lg-4 row-cols-xl-6 mb-4">{/* Studio Ghibli */}</Row>
-
-//   {/* Sezione Supereroi TRANNE spiderman */}
-//   <h4>Super</h4>
-//   <Row className="row-cols-1 row-cols-sm-2 row-cols-lg-4 row-cols-xl-6 mb-4">
-//     {/* Contenuto della sezione */}
-//   </Row>
