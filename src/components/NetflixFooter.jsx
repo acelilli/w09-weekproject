@@ -15,7 +15,7 @@ const NetflixFooter = () => {
             <Youtube size="0.8rem" />
           </Col>
         </Row>
-
+        {/* Volendo? Qui si sarebbe potuto fare un component per ogni colonna (forse dopo se ho tempo) */}
         {/* Parte dei link */}
         <Row xs={1} sm={2} md={4} lg={4}>
           {/* Prima Colonna */}
@@ -111,7 +111,6 @@ const NetflixFooter = () => {
         </Row>
         {/* Row del Copyright */}
         <Row className="mb-2 mt-2 copyright">
-          {" "}
           <Col md={3}>© 1997-2023 Netflix, Inc.</Col>
         </Row>
       </Row>
