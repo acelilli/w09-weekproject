@@ -13,10 +13,11 @@ class NetflixRows extends Component {
       isLoading: true,
     }); // Toggle dello state
     try {
-      const response = await fetch(`http://www.omdbapi.com/?apikey=43b92655&movie&s=${this.props.Title}`);
+      const response = await fetch(`http://www.omdbapi.com/?apikey=43b92655&movie&s=${this.movies.data}`);
       if (response.ok) {
         const data = await response.json();
-        this.setState({ movies: data });
+        this.setState({ movies: [data] });
+        console.log("success while fetching");
       } else {
         console.log("error while fetching");
       }
@@ -52,7 +53,7 @@ class NetflixRows extends Component {
             )}
           </Col>
         </Row>
-        {/* Sezione Anime */}
+        {/* Sezione Horror */}
         <Row>
           <Col md={12}>
             <h4 className="text-start">Horror</h4>
