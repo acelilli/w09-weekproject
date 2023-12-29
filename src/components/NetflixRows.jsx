@@ -1,89 +1,77 @@
 import React, { Component } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import SingleMovie from "./SingleMovie";
 
 class NetflixRows extends Component {
   state = {
-    movies: [],
-    isLoading: false, // Caricamento
+    data: [],
+    isLoaded: false,
+    // settings che servono per lo slide
+    settings: {
+      dots: false,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 6,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          },
+        },
+      ],
+    },
   };
 
   componentDidMount = async () => {
-    this.setState({
-      isLoading: true,
-    }); // Toggle dello state
+    const token = "43b92655";
+    const endpoint = `http://www.omdbapi.com/?apikey=${token}&movie&s=${this.props.searchQuery}`;
     try {
-      const response = await fetch(`http://www.omdbapi.com/?apikey=43b92655&movie&s=${this.movies.data}`);
+      const response = await fetch(endpoint);
       if (response.ok) {
         const data = await response.json();
-        this.setState({ movies: [data] });
+        this.setState({ data });
+        this.setState({ isLoaded: true });
         console.log("success while fetching");
       } else {
         console.log("error while fetching");
       }
-    } catch (err) {
-      console.log(err);
-      this.setState({
-        isLoading: false,
-      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
   render() {
-    const { movies, isLoaded } = this.state; // Destructuring della state per migliorare la leggibilità
-
-    if (!isLoaded) {
-      return <p>Loading...</p>; // Aggiunto messaggio di caricamento durante il fetch dei dati
-    }
-
+    const { data, isLoaded } = this.state;
     return (
-      <Container fluid>
-        {/* Sezione Fantasy */}
-        <Row>
-          <Col md={12}>
-            <h4 className="text-start">Fantasy</h4>
-          </Col>
-          <Col>
-            {this.state.isLoaded ? (
-              this.state.movies.map((movie, index) => {
-                return index < 6 && <SingleMovie key={movie.imdbID} movie={movie} />;
-              })
-            ) : (
-              <p>Errore</p>
-            )}
-          </Col>
-        </Row>
-        {/* Sezione Horror */}
-        <Row>
-          <Col md={12}>
-            <h4 className="text-start">Horror</h4>
-          </Col>
-          <Col>
-            {this.state.isLoaded ? (
-              this.state.movies.map((movie, index) => {
-                return index < 6 && <SingleMovie key={movie.imdbID} movie={movie} />;
-              })
-            ) : (
-              <p>Errore</p>
-            )}
-          </Col>
-        </Row>
-        {/* Sezione Supereroi TRANNE Spiderman */}
-        <Row>
-          <Col md={12}>
-            <h4 className="text-start">Super</h4>
-          </Col>
-          <Col>
-            {this.state.isLoaded ? (
-              this.state.movies.map((movie, index) => {
-                return index < 6 && <SingleMovie key={movie.imdbID} movie={movie} />;
-              })
-            ) : (
-              <p>Errore</p>
-            )}
-          </Col>
-        </Row>
-      </Container>
+      <>
+        <Slider {...this.state.settings} className={this.props.stile}>
+          {data.Search &&
+            data.Search.map((movie) => (
+              <div key={movie.imdbID}>
+                <SingleMovie img={movie.Poster} />
+              </div>
+            ))}
+        </Slider>
+      </>
     );
   }
 }

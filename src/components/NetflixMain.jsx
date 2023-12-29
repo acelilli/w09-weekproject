@@ -19,9 +19,9 @@ const NetflixMain = () => {
                 className="ms-4 mt-1 rounded-0"
                 style={{ background: "#221f1f", border: "solid 1px" }}
               >
-                <Dropdown.Item href="#">Fantasy</Dropdown.Item>
-                <Dropdown.Item href="#">Anime</Dropdown.Item>
-                <Dropdown.Item href="#">Super</Dropdown.Item>
+                <Dropdown.Item href="#harry-potter">Harry Potter</Dropdown.Item>
+                <Dropdown.Item href="#lotr">Lord of the Rings</Dropdown.Item>
+                <Dropdown.Item href="#avengers">Avengers</Dropdown.Item>
               </DropdownButton>
             </div>
           </div>
@@ -32,7 +32,26 @@ const NetflixMain = () => {
           <List size="1rem" />
         </Col>
       </Row>
-      <NetflixRows movie="ghibli" />
+      <div className="mt-3">
+        <h4 className="text-start" id="harry-potter">
+          Harry Potter
+        </h4>
+        <NetflixRows searchQuery="harry potter" />
+      </div>
+
+      <div className="mt-3">
+        <h4 className="text-start" id="lotr">
+          Lord Of The Rings
+        </h4>
+        <NetflixRows searchQuery="lord of the rings" />
+      </div>
+
+      <div className="mt-3">
+        <h4 className="text-start" id="avengers">
+          Avengers
+        </h4>
+        <NetflixRows searchQuery="avengers" />
+      </div>
     </Container>
   );
 };

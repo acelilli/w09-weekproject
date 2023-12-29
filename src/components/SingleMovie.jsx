@@ -1,16 +1,14 @@
-import React, { Component } from "react";
-import { Card } from "react-bootstrap";
+import React from "react";
 
-class SingleMovie extends Component {
-  render() {
-    const { movie } = this.props;
-
-    return (
-      <Card className="h-100 border-0 m-1">
-        <Card.Img variant="top" src={movie.Poster} alt={movie.Title} className="h-75" />
-      </Card>
-    );
-  }
-}
+const SingleMovie = (props) => {
+  return (
+    <img
+      src={props.img}
+      className="poster"
+      alt="description"
+      style={{ width: "95%", height: "200px", objectFit: "cover", objectPosition: "50% 10%" }}
+    />
+  );
+};
 
 export default SingleMovie;
